@@ -1,3 +1,5 @@
+package com.google;
+
 googlecode = {project, name ->
     project.scm {
         connection "scm:svn:http://${name}.googlecode.com/svn/trunk"

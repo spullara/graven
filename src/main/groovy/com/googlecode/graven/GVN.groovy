@@ -6,7 +6,8 @@ import groovy.lang.Binding;
 import groovy.xml.MarkupBuilder;
 
 import java.io.File;
-import java.io.IOException;
+import java.io.IOException
+import org.codehaus.gant.IncludeTargets
 
 /**
  * TODO: Edit this
@@ -20,9 +21,15 @@ public class GVN {
         GroovyShell shell = new GroovyShell();
         String filename = args.length == 0 ? "pom.groovy" : args[0];
         Script script = shell.parse(new File(filename));
-        MarkupBuilder mb = new MarkupBuilder();
         Binding binding = new Binding();
-        binding.setProperty("delegate", mb);
+        binding.setProperty "includeTargets", new IncludeTargets(binding);
+        script.binding = binding
+        MarkupBuilder mb = new MarkupBuilder();
+        binding.setProperty ("pom", { pom ->
+            mb.project {
+                pom() 
+            }
+        })
         script.run();
     }
 }

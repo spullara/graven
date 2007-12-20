@@ -1,3 +1,5 @@
+package org.apache;
+
 asl2 = {project ->
     project.licenses {
         license {

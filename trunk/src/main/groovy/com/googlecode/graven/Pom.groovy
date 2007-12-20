@@ -1,3 +1,5 @@
+package com.googlecode.graven;
+
 testdependency = {dependencies, gid, aid, v ->
     dependencies.dependency {
         groupId gid

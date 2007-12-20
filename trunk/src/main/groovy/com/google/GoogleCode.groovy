@@ -1,4 +1,4 @@
-package com.google;
+package com.google
 
 googlecode = {project, name ->
     project.scm {

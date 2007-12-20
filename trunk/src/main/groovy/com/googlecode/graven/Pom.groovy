@@ -44,7 +44,7 @@ executableJar = {plugins, mainclassname ->
         executions {
             execution {
                 id "make-assembly"
-                phase "pacakge"
+                phase "package"
                 goals {
                     goal "attached"
                 }
@@ -58,5 +58,53 @@ repository = {parent, _id, _name, _url ->
         id _id
         name _name
         url _url
+    }
+}
+
+groovy = { plugins ->
+    plugins.plugin {
+        artifactId "maven-antrun-plugin"
+        executions {
+            execution {
+                id "compile"
+                phase "compile"
+                configuration {
+                    tasks {
+                        taskdef (name:"groovyc", classname:"org.codehaus.groovy.ant.Groovyc") {
+                            classpath(refid:"maven.compile.classpath")
+                        }
+                        mkdir (dir:'${project.build.outputDirectory}')
+                        groovyc (destdir:'${project.build.outputDirectory}',
+                                srcdir:'${basedir}/src/main/groovy',
+                                listfiles:"true") {
+                            classpath(refid:"maven.compile.classpath")
+                        }
+                    }
+                }
+                goals {
+                    goal "run"
+                }
+            }
+            execution {
+                id "test-compile"
+                phase "test-compile"
+                configuration {
+                    tasks {
+                        taskdef (name:"groovyc", classname:"org.codehaus.groovy.ant.Groovyc") {
+                            classpath(refid:"maven.compile.classpath")
+                        }
+                        mkdir (dir:'${project.build.testOutputDirectory}')
+                        groovyc (destdir:'${project.build.testOutputDirectory}',
+                                srcdir:'${basedir}/src/test/groovy',
+                                listfiles:"true") {
+                            classpath(refid:"maven.compile.classpath")
+                        }
+                    }
+                }
+                goals {
+                    goal "run"
+                }
+            }
+        }
     }
 }

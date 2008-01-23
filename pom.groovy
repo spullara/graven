@@ -23,7 +23,7 @@ project {
     }
 
     dependencies {
-        dependency("groovy", "groovy-all", "1.1-rc-1")
+        dependency("org.codehaus.groovy", "groovy-all", "1.5.1")
     }
 
     build {

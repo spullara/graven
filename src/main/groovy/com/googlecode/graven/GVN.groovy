@@ -1,6 +1,5 @@
 package com.googlecode.graven;
 
-
 import groovy.xml.MarkupBuilder
 
 // Read the pom.groovy script

@@ -108,3 +108,20 @@ groovy = { plugins ->
         }
     }
 }
+
+antlr = {plugins, debugEnabled ->
+    plugins.plugin {
+        groupId "org.codehaus.mojo"
+        artifactId "antlr3-maven-plugin"
+        configuration {
+            debug "${debugEnabled}"
+        }
+        executions {
+            execution {
+                goals {
+                    goal "antlr"
+                }
+            }
+        }
+    }
+}

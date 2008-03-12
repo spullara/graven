@@ -1,3 +1,5 @@
+package com.googlecode.graven;
+
 import javax.xml.parsers.DocumentBuilderFactory
 import org.codehaus.groovy.tools.xml.DomToGroovy
 

@@ -61,52 +61,33 @@ repository = {parent, _id, _name, _url ->
     }
 }
 
-groovy = { plugins ->
-    plugins.plugin {
-        artifactId "maven-antrun-plugin"
-        executions {
-            execution {
-                id "compile"
-                phase "compile"
-                configuration {
-                    tasks {
-                        taskdef (name:"groovyc", classname:"org.codehaus.groovy.ant.Groovyc") {
-                            classpath(refid:"maven.compile.classpath")
-                        }
-                        mkdir (dir:'${project.build.outputDirectory}')
-                        groovyc (destdir:'${project.build.outputDirectory}',
-                                srcdir:'${basedir}/src/main/groovy',
-                                listfiles:"true") {
-                            classpath(refid:"maven.compile.classpath")
-                        }
-                    }
-                }
-                goals {
-                    goal "run"
-                }
-            }
-            execution {
-                id "test-compile"
-                phase "test-compile"
-                configuration {
-                    tasks {
-                        taskdef (name:"groovyc", classname:"org.codehaus.groovy.ant.Groovyc") {
-                            classpath(refid:"maven.compile.classpath")
-                        }
-                        mkdir (dir:'${project.build.testOutputDirectory}')
-                        groovyc (destdir:'${project.build.testOutputDirectory}',
-                                srcdir:'${basedir}/src/test/groovy',
-                                listfiles:"true") {
-                            classpath(refid:"maven.compile.classpath")
-                        }
-                    }
-                }
-                goals {
-                    goal "run"
-                }
-            }
-        }
-    }
+groovydeps = { dependencies ->
+	dependencies.dependency {
+		groupId "org.codehaus.groovy.maven"
+		artifactId "gmaven-mojo"
+		version "1.0-rc-2"
+	}
+	dependencies.dependency {
+		groupId "org.codehaus.groovy.maven.runtime"
+		artifactId "gmaven-runtime-default"
+		version "1.0-rc-2"
+	}
+}
+
+groovy = { plugins -> 
+	plugins.plugin {
+		groupId "org.codehaus.groovy.maven"
+		artifactId "gmaven-plugin"
+		version "1.0-rc-2"
+		executions {
+			execution {
+				goals {
+					goal "compile"
+					goal "testCompile"
+				}
+			}
+		}
+	}
 }
 
 antlr = {plugins, debugEnabled ->

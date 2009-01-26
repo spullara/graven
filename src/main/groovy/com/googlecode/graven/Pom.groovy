@@ -115,7 +115,9 @@ xjc = {executions, name, pkg, schema, dir, clear = "true" ->
             goal "xjc"
         }
         configuration {
-            packageName pkg
+            if (pkg != null) {
+			    packageName pkg
+			}
             schemaFiles schema
             staleFile '${project.build.directory}/generated-sources/jaxb/.' + name + 'StaleFlag'
             clearOutputDir clear

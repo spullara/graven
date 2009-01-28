@@ -36,11 +36,20 @@ private def createPom(dir = ".") {
         }
     }
 
+    def includeFile = {file ->
+        def include = shell.parse(new File(dir, file))
+        include.run()
+        include.binding.properties.variables.each {
+            binding.setVariable it.key, it.value.curry(mb)
+        }
+    }
+
     // Standard library
     includeClass(Pom)
 
     // Add the includer to the binding
     binding.setProperty "include", includeClass
+    binding.setProperty "includeFile", includeFile
 
     // Set the script binding and execute
     script.binding = binding

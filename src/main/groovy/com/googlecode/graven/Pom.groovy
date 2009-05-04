@@ -62,12 +62,12 @@ repository = {parent, _id, _name, _url ->
     }
 }
 
-repository = {parent, _id, _name, _url, _layout ->
+legacyrepository = {parent, _id, _name, _url ->
     parent.repository {
         id _id
         name _name
         url _url
-        layout _layout
+        layout "legacy"
     }
 }
 

@@ -62,6 +62,23 @@ repository = {parent, _id, _name, _url ->
     }
 }
 
+repository = {parent, _id, _name, _url, _layout ->
+    parent.repository {
+        id _id
+        name _name
+        url _url
+        layout _layout
+    }
+}
+
+pluginRepository = {parent, _id, _name, _url ->
+    parent.pluginRepository {
+        id _id
+        name _name
+        url _url
+    }
+}
+
 groovydeps = {dependencies ->
     dependencies.dependency {
         groupId "org.codehaus.groovy.maven"

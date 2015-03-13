@@ -1,0 +1,1 @@
+If you have every wanted a better way to use Maven2, here it is.
